@@ -38,6 +38,7 @@
             justify-content: center;
             gap: 5rem;
             align-items: center;
+            flex-wrap: wrap;
         }
 
         .profile {
@@ -83,18 +84,61 @@
             color: black;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            h1 {
+                margin-top: 50px;
+            }
+
+            body {
+                height: auto;
+            }
+            .profiles {
+                gap: 2rem;
+                margin-bottom: 50px;
+            }
+
+            .profile {
+                width: 280px;
+                height: auto;
+                padding: 1rem 0.5rem;
+            }
+
+            .profile img {
+                width: 150px;
+                height: 150px;
+            }
+
             h1 {
                 font-size: 1.5rem;
             }
 
+            p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                margin-top: 50px;
+            }
+
+            body {
+                height: auto;
+            }
+            .profiles {
+                flex-direction: auto;
+                gap: 2rem;
+                margin-bottom: 50px;
+            }
+
+
             .profile {
-                width: 120px;
+                width: 90%;
             }
 
             .profile img {
-                width: 60px;
-                height: 60px;
+                width: 120px;
+                height: 120px;
             }
         }
     </style>
