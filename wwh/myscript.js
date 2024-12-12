@@ -26,7 +26,7 @@ const quizData = [
 ];
 
 const answerData = ['01.jpg', '01.jpg', '01.jpg'];
-const questionData = ['02.jpg','02.jpg','02.jpg'];
+const questionData = ['02.jpg', '02.jpg', '02.jpg'];
 
 const quiz = document.getElementById('quiz');
 const answerEls = document.querySelectorAll('.answer');
@@ -40,11 +40,11 @@ const submitBtn = document.getElementById('submit');
 let next = false;
 let currentQuiz = 0;
 let score = 0;
+let first = true;
 
 function deselectAnswers() {
     answerEls.forEach(answerEl => answerEl.checked = false);
 }
-
 
 function loadQuestion() {
     const questionImage = document.getElementById('question-image');
@@ -54,8 +54,6 @@ function loadQuestion() {
 function loadAnswer() {
     const questionImage = document.getElementById('question-image');
     questionImage.src = answerData[currentQuiz];
-    currentQuiz++;
-    
 }
 
 function getSelected() {
@@ -80,30 +78,41 @@ function loadQuiz() {
 }
 
 submitBtn.addEventListener('click', () => {
-    const answer = getSelected();
-
-    if (next){
-
+    if (first) {
+        // Show the quiz on first click
+        document.querySelectorAll('.quiz_ul').forEach(function(element) {
+            element.style.display = 'block';
+        });
+        loadQuiz();
+        first = false;
+    } else if (next) {
+        const answer = getSelected();
         if (answer) {
             if (answer === quizData[currentQuiz].answer) {
                 score++;
             }
-            next = false;
+            currentQuiz++;  // Increment the question index
+            next = false; // Reset the flag to show the question next
+
             if (currentQuiz < quizData.length) {
-                loadQuiz();
+                loadQuiz();  // Load the next question
             } else {
-                document.getElementById('quiz').innerHTML = `
+                // All questions have been answered
+                quiz.innerHTML = `
                     <h2>You answered ${score}/${quizData.length} questions correctly</h2>
                     <button onclick="location.reload()">Reload</button>
                 `;
             }
         }
-
     } else {
-        loadAnswer();
-        next = true;
+        loadAnswer();  // Show the answer after the question
+        next = true;  // Set flag to move to next question
     }
-
 });
 
-loadQuiz();
+// Hide the quiz initially
+document.querySelectorAll('.quiz_ul').forEach(function(element) {
+    element.style.display = 'none';
+});
+
+questionEl.innerText = 'Bored? Play some game:)';  // Default text before the quiz starts
