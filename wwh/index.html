@@ -13,16 +13,20 @@
     />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="quizStyle.css"/>
+    <link rel="stylesheet" href="quiz.css">
   </head>
   <body>
+    
     <div class="container">
       <ul class="menu_ul">
-        <li class="menu_li"><a class="list-items" href="../index.html">Home</a></li>
+        <li class="menu_li"><a class="list-items" href="../index.html">Back</a></li>
       </ul>
     </div>
     <div class="slider-container">
-      <div class=" slide quiz-container" id="quiz">
-        <div class="quiz-header">
+      <div class="slide quiz-container" id="quiz">
+        <div style="display: flex; width: 105%; justify-content: center; align-items: center;" class="quiz-header">`
+
+          <div class="question" style="width: 50%; border: 1px solid red;">
           <h2 id="question">Question text</h2>
           <ul class="quiz_ul">
             <li>
@@ -46,10 +50,17 @@
             </li>
           </ul>
         </div>
-        <button class="quizButton" id="submit">Submit</button>
+
+        <div class="answer" style="border: 1px solid red; width: 50%;">
+          <img id="question-image" src="" alt="Question Image" style="width: 100%; max-height: 600px; object-fit: cover;">
+        </div>
+
+        </div>
+
+        <button class="quizButton" id="submit">Next</button>
       </div>
     </div>
     <script src="slideScript.js"></script>
-    <script src="myscript.js"></script>
+    <script src="myscript copy.js"></script>
   </body>
 </html>

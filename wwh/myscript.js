@@ -1,6 +1,6 @@
 const quizData = [
     {
-        question: 'What is a portfolio?',
+        question: 'Which coding languages are used to build this Portfolio Website?',
         a: 'Leang',
         b: 'Long',
         c: 'Huy',
@@ -23,15 +23,10 @@ const quizData = [
         d: 'New York',
         answer: 'a',
     },
-    {
-        question: 'What is the developer job?',
-        a: 'Engineer',
-        b: 'Mechanic',
-        c: 'Teacher',
-        d: 'Student',
-        answer: 'd',
-    },
 ];
+
+const answerData = ['01.jpg', '01.jpg', '01.jpg'];
+const questionData = ['02.jpg','02.jpg','02.jpg'];
 
 const quiz = document.getElementById('quiz');
 const answerEls = document.querySelectorAll('.answer');
@@ -42,11 +37,25 @@ const c_text = document.getElementById('c_text');
 const d_text = document.getElementById('d_text');
 const submitBtn = document.getElementById('submit');
 
+let next = false;
 let currentQuiz = 0;
 let score = 0;
 
 function deselectAnswers() {
     answerEls.forEach(answerEl => answerEl.checked = false);
+}
+
+
+function loadQuestion() {
+    const questionImage = document.getElementById('question-image');
+    questionImage.src = questionData[currentQuiz];
+}
+
+function loadAnswer() {
+    const questionImage = document.getElementById('question-image');
+    questionImage.src = answerData[currentQuiz];
+    currentQuiz++;
+    
 }
 
 function getSelected() {
@@ -61,6 +70,7 @@ function getSelected() {
 
 function loadQuiz() {
     deselectAnswers();
+    loadQuestion();
     const currentQuizData = quizData[currentQuiz];
     questionEl.innerText = currentQuizData.question;
     a_text.innerText = currentQuizData.a;
@@ -71,20 +81,29 @@ function loadQuiz() {
 
 submitBtn.addEventListener('click', () => {
     const answer = getSelected();
-    if (answer) {
-        if (answer === quizData[currentQuiz].answer) {
-            score++;
+
+    if (next){
+
+        if (answer) {
+            if (answer === quizData[currentQuiz].answer) {
+                score++;
+            }
+            next = false;
+            if (currentQuiz < quizData.length) {
+                loadQuiz();
+            } else {
+                document.getElementById('quiz').innerHTML = `
+                    <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+                    <button onclick="location.reload()">Reload</button>
+                `;
+            }
         }
-        currentQuiz++;
-        if (currentQuiz < quizData.length) {
-            loadQuiz();
-        } else {
-            document.getElementById('quiz').innerHTML = `
-                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
-                <button onclick="location.reload()">Reload</button>
-            `;
-        }
+
+    } else {
+        loadAnswer();
+        next = true;
     }
+
 });
 
 loadQuiz();
